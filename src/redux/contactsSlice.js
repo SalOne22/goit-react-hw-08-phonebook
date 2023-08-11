@@ -7,49 +7,39 @@ const initialState = {
   error: null,
 };
 
+const isRejectedAction = action => action.type.endsWith('rejected');
+const isPendingAction = action => action.type.endsWith('pending');
+const isFulfilledAction = action => action.type.endsWith('fulfilled');
+
 const slice = createSlice({
   name: 'contacts',
   initialState,
   extraReducers: builder => {
     builder
       .addCase(fetchContacts.pending, state => {
-        state.isLoading = true;
-        state.error = null;
         state.items = [];
       })
       .addCase(fetchContacts.fulfilled, (state, action) => {
-        state.isLoading = false;
         state.items = action.payload;
       })
-      .addCase(fetchContacts.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      })
-      .addCase(addContact.pending, state => {
-        state.isLoading = true;
-        state.error = null;
-      })
       .addCase(addContact.fulfilled, (state, action) => {
-        state.isLoading = false;
         state.items = [...state.items, action.payload];
       })
-      .addCase(addContact.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
+      .addCase(deleteContact.fulfilled, (state, action) => {
+        state.items = state.items.filter(
+          contact => contact.id !== action.payload,
+        );
       })
-      .addCase(deleteContact.pending, state => {
+      .addMatcher(isPendingAction, state => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(deleteContact.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.items = state.items.filter(
-          contact => contact.id !== action.payload
-        );
-      })
-      .addCase(deleteContact.rejected, (state, action) => {
+      .addMatcher(isRejectedAction, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addMatcher(isFulfilledAction, state => {
+        state.isLoading = false;
       });
   },
 });
