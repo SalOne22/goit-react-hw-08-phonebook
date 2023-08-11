@@ -1,32 +1,55 @@
-import PropTypes from 'prop-types';
-import { ContactItem } from './ContactItem';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { FallingLines } from 'react-loader-spinner';
+import { fetchContacts, deleteContact } from '../../redux/operations';
+import {
+  selectContactsError,
+  selectContactsIsLoading,
+  selectFilteredContacts,
+} from '../../redux/selectors';
+import { ContactItem, List } from './ContactList.styled';
+import { toast } from 'react-toastify';
 
-export const ContactList = ({ contacts = [] }) => {
+export const ContactList = () => {
+  const filteredContacts = useSelector(selectFilteredContacts);
+  const error = useSelector(selectContactsError);
+  const isLoading = useSelector(selectContactsIsLoading);
+  const dispatch = useDispatch();
+
   const handleDelete = id => {
-    console.log(id);
+    dispatch(deleteContact(id));
   };
 
-  return (
-    <ul className="flex flex-col gap-4">
-      {contacts.map(({ id, name, phone }) => (
-        <ContactItem
-          key={id}
-          id={id}
-          name={name}
-          phone={phone}
-          onDelete={handleDelete}
-        />
-      ))}
-    </ul>
-  );
-};
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      phone: PropTypes.string.isRequired,
-    }),
-  ),
+  useEffect(() => {
+    if (error !== null) toast.error(error);
+  }, [error]);
+
+  if (isLoading)
+    return (
+      <div>
+        <FallingLines
+          color="#282828"
+          width="100"
+          visible={true}
+          ariaLabel="falling-lines-loading"
+        />
+      </div>
+    );
+
+  return (
+    <List>
+      {filteredContacts.map(({ name, phone, id }) => (
+        <ContactItem key={id}>
+          <p>
+            {name}: {phone}
+          </p>
+          <button onClick={() => handleDelete(id)}>Delete</button>
+        </ContactItem>
+      ))}
+    </List>
+  );
 };
