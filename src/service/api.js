@@ -38,4 +38,28 @@ export default class Api {
 
     return deletedContact.id;
   }
+
+  async registerUser(user) {
+    return await this.fetch('/users/signup', {
+      method: 'POST',
+      body: JSON.stringify(user),
+    });
+  }
+
+  async loginUser(user) {
+    return await this.fetch('/users/login', {
+      method: 'POST',
+      body: JSON.stringify(user),
+    });
+  }
+
+  async logout() {
+    return await this.fetch('/users/logout', {
+      method: 'POST',
+    });
+  }
+
+  async getCurrentUser() {
+    return await this.fetch('/users/current');
+  }
 }
