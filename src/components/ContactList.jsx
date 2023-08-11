@@ -9,6 +9,7 @@ import {
   Text,
   IconButton,
   Spinner,
+  useToast,
 } from '@chakra-ui/react';
 import { fetchContacts, deleteContact } from '../redux/operations';
 import {
@@ -16,9 +17,9 @@ import {
   selectContactsIsLoading,
   selectFilteredContacts,
 } from '../redux/selectors';
-import { toast } from 'react-toastify';
 
 export const ContactList = () => {
+  const toast = useToast();
   const filteredContacts = useSelector(selectFilteredContacts);
   const error = useSelector(selectContactsError);
   const isLoading = useSelector(selectContactsIsLoading);
@@ -33,8 +34,13 @@ export const ContactList = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (error !== null) toast.error(error);
-  }, [error]);
+    if (error !== null)
+      toast({
+        title: error,
+        status: 'error',
+        isClosable: true,
+      });
+  }, [error, toast]);
 
   if (isLoading)
     return (

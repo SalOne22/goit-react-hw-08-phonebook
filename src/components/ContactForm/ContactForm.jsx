@@ -1,12 +1,12 @@
 import * as yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 import {
   FormControl,
   FormLabel,
   Button,
   Input,
   FormErrorMessage,
+  useToast,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -37,6 +37,8 @@ const schema = yup
   .required();
 
 export const ContactForm = () => {
+  const toast = useToast();
+
   const {
     register,
     handleSubmit,
@@ -57,7 +59,11 @@ export const ContactForm = () => {
         contact => name.toLowerCase() === contact.name.toLowerCase(),
       )
     ) {
-      toast.error(`${name} is already in contacts.`);
+      toast({
+        title: `${name} is already in contacts`,
+        status: 'error',
+        isClosable: true,
+      });
       return;
     }
 
