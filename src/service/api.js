@@ -1,4 +1,4 @@
-export default class Api {
+class Api {
   static BASE_URL = 'https://connections-api.herokuapp.com';
 
   constructor() {
@@ -72,3 +72,5 @@ export default class Api {
     return await this.fetch('/users/current');
   }
 }
+
+export default new Api();
