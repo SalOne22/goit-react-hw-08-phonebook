@@ -23,7 +23,7 @@ const schema = yup
       .string()
       .matches(
         nameRegExp,
-        "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan",
+        'Name may contain only letters, apostrophe, dash and spaces.',
       )
       .required('Name is a required field'),
     phone: yup
