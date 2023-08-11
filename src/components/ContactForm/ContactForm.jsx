@@ -1,36 +1,54 @@
-import { useState } from 'react';
+import * as yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { FormControl, FormLabel, Button, Input } from '@chakra-ui/react';
+import {
+  FormControl,
+  FormLabel,
+  Button,
+  Input,
+  FormErrorMessage,
+} from '@chakra-ui/react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { addContact } from '../../redux/operations';
 import { selectContacts } from '../../redux/selectors';
 import { Form } from './ContactForm.styled';
 
+const nameRegExp = /^[A-Za-z\u0080-\uFFFF ']+$/;
+const phoneRegExp = /^(\+?[0-9.()\-\s]*)$/;
+
+const schema = yup
+  .object({
+    name: yup
+      .string()
+      .matches(
+        nameRegExp,
+        "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan",
+      )
+      .required('Name is a required field'),
+    phone: yup
+      .string()
+      .matches(
+        phoneRegExp,
+        'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +',
+      )
+      .required('Phone is a required field'),
+  })
+  .required();
+
 export const ContactForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-
-  const handleChange = evt => {
-    const { value, name } = evt.target;
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-      case 'number':
-        setPhone(value);
-        break;
-
-      default:
-        break;
-    }
-  };
-
-  const handleSubmit = evt => {
-    evt.preventDefault();
-
+  const onSubmit = ({ name, phone }) => {
     const contactName = name.trim();
 
     if (
@@ -42,40 +60,23 @@ export const ContactForm = () => {
       return;
     }
 
-    dispatch(addContact({ name, phone }));
-
-    setName('');
-    setPhone('');
+    return dispatch(addContact({ name, phone }));
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <FormControl>
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <FormControl isRequired isInvalid={errors.name}>
         <FormLabel>Name</FormLabel>
-        <Input
-          type="text"
-          name="name"
-          onChange={handleChange}
-          value={name}
-          pattern="^[A-Za-z\u0080-\uFFFF ']+$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-        />
+        <Input type="text" {...register('name')} />
+        <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
       </FormControl>
-      <FormControl mb={6}>
+      <FormControl isRequired isInvalid={errors.phone}>
         <FormLabel>Number</FormLabel>
-        <Input
-          type="tel"
-          name="number"
-          onChange={handleChange}
-          value={phone}
-          pattern="^(\+?[0-9.\(\)\-\s]*)$"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-        />
+        <Input type="tel" {...register('phone')} />
+        <FormErrorMessage>{errors.phone?.message}</FormErrorMessage>
       </FormControl>
 
-      <Button type="submit" colorScheme="green">
+      <Button mt={6} type="submit" colorScheme="green" isLoading={isSubmitting}>
         Add contact
       </Button>
     </Form>
