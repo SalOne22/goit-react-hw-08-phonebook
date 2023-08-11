@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
-
-import { Wrapper, Title, Container } from './Section.styled';
+import { Box, Container, Heading } from '@chakra-ui/react';
 
 export const Section = ({ title, children }) => (
-  <Wrapper>
-    <Container>
-      <Title>{title}</Title>
+  <Box py={8}>
+    <Container maxW="container.xl">
+      <Heading as="h2" mb={4}>
+        {title}
+      </Heading>
       {children}
     </Container>
-  </Wrapper>
+  </Box>
 );
 
 Section.propTypes = {
