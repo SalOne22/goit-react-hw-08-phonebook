@@ -16,6 +16,9 @@ export const LoginForm = () => {
   } = useForm();
 
   const onSubmit = ({ email, password }) => {
+    email = email.trim();
+    password = password.trim();
+
     console.log(email, password);
   };
 

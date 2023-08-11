@@ -49,11 +49,12 @@ export const ContactForm = () => {
   const dispatch = useDispatch();
 
   const onSubmit = ({ name, phone }) => {
-    const contactName = name.trim();
+    name = name.trim();
+    phone = phone.trim();
 
     if (
       contacts.find(
-        contact => contactName.toLowerCase() === contact.name.toLowerCase(),
+        contact => name.toLowerCase() === contact.name.toLowerCase(),
       )
     ) {
       toast.error(`${name} is already in contacts.`);

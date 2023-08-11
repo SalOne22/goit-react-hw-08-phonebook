@@ -36,6 +36,10 @@ export const RegisterForm = () => {
   });
 
   const onSubmit = ({ name, email, password }) => {
+    name = name.trim();
+    email = email.trim();
+    password = password.trim();
+
     console.log(name, email, password);
   };
 
