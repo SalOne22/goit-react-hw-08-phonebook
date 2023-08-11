@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import { FormControl, FormLabel, Button, Input } from '@chakra-ui/react';
 import { addContact } from '../../redux/operations';
 import { selectContacts } from '../../redux/selectors';
-import { Form, Input, Label } from './ContactForm.styled';
+import { Form } from './ContactForm.styled';
 
 export const ContactForm = () => {
   const contacts = useSelector(selectContacts);
@@ -49,8 +50,8 @@ export const ContactForm = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Label>
-        Name
+      <FormControl>
+        <FormLabel>Name</FormLabel>
         <Input
           type="text"
           name="name"
@@ -60,9 +61,9 @@ export const ContactForm = () => {
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
         />
-      </Label>
-      <Label>
-        Number
+      </FormControl>
+      <FormControl mb={6}>
+        <FormLabel>Number</FormLabel>
         <Input
           type="tel"
           name="number"
@@ -72,9 +73,9 @@ export const ContactForm = () => {
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
         />
-      </Label>
+      </FormControl>
 
-      <button type="submit">Add contact</button>
+      <Button colorScheme="green">Add contact</Button>
     </Form>
   );
 };
