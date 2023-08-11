@@ -12,7 +12,7 @@ export const App = () => {
         <ContactForm />
       </Section>
       <Section title="Contacts">
-        <Filter />
+        <Filter mb={4} />
         <ContactList />
       </Section>
     </ThemeProvider>
