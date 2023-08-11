@@ -1,8 +1,8 @@
 export default class Api {
   static BASE_URL = 'https://connections-api.herokuapp.com';
 
-  constructor(token) {
-    this.token = token;
+  constructor() {
+    this.token = null;
   }
 
   async fetch(url, { method = 'GET', body } = {}) {
@@ -11,6 +11,7 @@ export default class Api {
       body,
       headers: {
         'Content-Type': 'application/json',
+        Authorization: this.token && `Bearer ${this.token}`,
       },
     });
 
@@ -18,6 +19,14 @@ export default class Api {
       throw new Error(`${response.status}: ${response.statusText}`);
 
     return await response.json();
+  }
+
+  setToken(token) {
+    this.token = token;
+  }
+
+  resetToken() {
+    this.token = null;
   }
 
   async fetchContacts() {
