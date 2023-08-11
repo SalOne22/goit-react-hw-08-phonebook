@@ -75,7 +75,9 @@ export const ContactForm = () => {
         />
       </FormControl>
 
-      <Button colorScheme="green">Add contact</Button>
+      <Button type="submit" colorScheme="green">
+        Add contact
+      </Button>
     </Form>
   );
 };
