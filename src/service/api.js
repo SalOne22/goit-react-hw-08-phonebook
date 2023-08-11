@@ -1,5 +1,5 @@
 export default class Api {
-  static BASE_URL = 'https://64ce4f770c01d81da3eeafa2.mockapi.io/api';
+  static BASE_URL = 'https://connections-api.herokuapp.com';
 
   constructor(token) {
     this.token = token;
@@ -21,18 +21,14 @@ export default class Api {
   }
 
   async fetchContacts() {
-    const contacts = await this.fetch('/contacts');
-
-    return contacts;
+    return await this.fetch('/contacts');
   }
 
   async addContact(contact) {
-    const newContact = await this.fetch('/contacts', {
+    return await this.fetch('/contacts', {
       method: 'POST',
       body: JSON.stringify(contact),
     });
-
-    return newContact;
   }
 
   async deleteContact(id) {
