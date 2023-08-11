@@ -1,42 +1,45 @@
-const BASE_URL = 'https://64ce4f770c01d81da3eeafa2.mockapi.io/api';
+export default class Api {
+  static BASE_URL = 'https://64ce4f770c01d81da3eeafa2.mockapi.io/api';
 
-export const fetchAllContacts = async () => {
-  const response = await fetch(`${BASE_URL}/contacts`);
+  constructor(token) {
+    this.token = token;
+  }
 
-  if (!response.ok)
-    throw new Error(`${response.status}: ${response.statusText}`);
+  async fetch(url, { method = 'GET', body } = {}) {
+    const response = await fetch(`${Api.BASE_URL}${url}`, {
+      method,
+      body,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-  const contacts = await response.json();
+    if (!response.ok)
+      throw new Error(`${response.status}: ${response.statusText}`);
 
-  return contacts;
-};
+    return await response.json();
+  }
 
-export const addContactOnServer = async contact => {
-  const response = await fetch(`${BASE_URL}/contacts`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(contact),
-  });
+  async fetchContacts() {
+    const contacts = await this.fetch('/contacts');
 
-  if (!response.ok)
-    throw new Error(`${response.status}: ${response.statusText}`);
+    return contacts;
+  }
 
-  const newContact = await response.json();
+  async addContact(contact) {
+    const newContact = await this.fetch('/contacts', {
+      method: 'POST',
+      body: JSON.stringify(contact),
+    });
 
-  return newContact;
-};
+    return newContact;
+  }
 
-export const deleteContactOnServer = async id => {
-  const response = await fetch(`${BASE_URL}/contacts/${id}`, {
-    method: 'DELETE',
-  });
+  async deleteContact(id) {
+    const deletedContact = await this.fetch(`/contacts/${id}`, {
+      method: 'DELETE',
+    });
 
-  if (!response.ok)
-    throw new Error(`${response.status}: ${response.statusText}`);
-
-  const deletedContact = await response.json();
-
-  return deletedContact.id;
-};
+    return deletedContact.id;
+  }
+}
