@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 
 const Home = () => {
   return (
-    <div className="hero min-h-screen">
+    <section className="hero min-h-screen">
       <div className="hero-content text-center">
         <div className="max-w-md">
           <h1 className="text-5xl font-bold">Phonebook</h1>
@@ -15,7 +15,7 @@ const Home = () => {
           </NavLink>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
