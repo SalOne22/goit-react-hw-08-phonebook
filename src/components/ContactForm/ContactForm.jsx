@@ -21,18 +21,18 @@ const schema = yup
   .object({
     name: yup
       .string()
+      .required('Name is a required field')
       .matches(
         nameRegExp,
         'Name may contain only letters, apostrophe, dash and spaces.',
-      )
-      .required('Name is a required field'),
+      ),
     phone: yup
       .string()
+      .required('Phone is a required field')
       .matches(
         phoneRegExp,
         'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +',
-      )
-      .required('Phone is a required field'),
+      ),
   })
   .required();
 
