@@ -8,7 +8,11 @@ import { store } from './redux/store';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
-      <ChakraProvider>
+      <ChakraProvider
+        toastOptions={{
+          defaultOptions: { position: 'top-right', duration: 2500 },
+        }}
+      >
         <App />
       </ChakraProvider>
     </Provider>
