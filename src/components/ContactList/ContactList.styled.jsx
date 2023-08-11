@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 export const List = styled.ul`
   font-size: ${props => props.theme.fontSizes.medium};

@@ -1,4 +1,4 @@
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from '@emotion/react';
 import { Section } from './Section';
 import { ContactForm } from './ContactForm';
 import { ContactList } from './ContactList';
