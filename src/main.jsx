@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { ChakraProvider } from '@chakra-ui/react';
 import { App } from './components/App';
 import { store } from './redux/store';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -13,7 +14,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           defaultOptions: { position: 'top-right', duration: 2500 },
         }}
       >
-        <App />
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
+          <App />
+        </BrowserRouter>
       </ChakraProvider>
     </Provider>
   </React.StrictMode>,

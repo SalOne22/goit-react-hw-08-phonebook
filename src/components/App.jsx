@@ -1,18 +1,26 @@
-import { Section } from './Section';
-import { ContactForm } from './ContactForm';
-import { ContactList } from './ContactList';
-import { Filter } from './Filter';
+import { Suspense } from 'react';
+import { ScreenLoader } from './ScreenLoader';
+import { Routes } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import { Layout } from './Layout';
+import { lazy } from 'react';
+
+const Home = lazy(() => import('../pages/Home'));
+const Contacts = lazy(() => import('../pages/Contacts'));
+const Login = lazy(() => import('../pages/Login'));
+const Register = lazy(() => import('../pages/Register'));
 
 export const App = () => {
   return (
-    <div>
-      <Section title="Phonebook">
-        <ContactForm />
-      </Section>
-      <Section title="Contacts">
-        <Filter mb={4} />
-        <ContactList />
-      </Section>
-    </div>
+    <Suspense fallback={<ScreenLoader />}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="contacts" element={<Contacts />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+        </Route>
+      </Routes>
+    </Suspense>
   );
 };
