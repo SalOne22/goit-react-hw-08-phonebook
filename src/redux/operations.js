@@ -35,3 +35,33 @@ export const deleteContact = createAsyncThunk(
     }
   },
 );
+
+export const registerUser = createAsyncThunk(
+  'user/register',
+  async (user, thunkAPI) => {
+    try {
+      return await api.registerUser(user);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  },
+);
+
+export const loginUser = createAsyncThunk(
+  'user/login',
+  async (user, thunkAPI) => {
+    try {
+      return await api.loginUser(user);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  },
+);
+
+export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
+  try {
+    return await api.logout();
+  } catch (err) {
+    return thunkAPI.rejectWithValue(err.message);
+  }
+});
