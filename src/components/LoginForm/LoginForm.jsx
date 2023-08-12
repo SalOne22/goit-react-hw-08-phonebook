@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Form } from './LoginForm.styled';
 import { loginUser } from '../../redux/operations';
 import { selectUserError } from '../../redux/selectors';
+import { clearError } from '../../redux/authSlice';
 
 export const LoginForm = () => {
   const toast = useToast();
@@ -34,13 +35,16 @@ export const LoginForm = () => {
   };
 
   useEffect(() => {
-    if (error !== null)
+    if (error !== null) {
       toast({
         title: error,
         status: 'error',
         isClosable: true,
       });
-  }, [error, toast]);
+
+      dispatch(clearError());
+    }
+  }, [error, toast, dispatch]);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>

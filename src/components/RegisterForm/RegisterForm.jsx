@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Form } from './RegisterForm.styled';
 import { registerUser } from '../../redux/operations';
 import { selectUserError } from '../../redux/selectors';
+import { clearError } from '../../redux/authSlice';
 
 const nameRegExp = /^[A-Za-z\u0080-\uFFFF ']+$/;
 
@@ -55,13 +56,16 @@ export const RegisterForm = () => {
   };
 
   useEffect(() => {
-    if (error !== null)
+    if (error !== null) {
       toast({
         title: error,
         status: 'error',
         isClosable: true,
       });
-  }, [error, toast]);
+
+      dispatch(clearError());
+    }
+  }, [error, toast, dispatch]);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
