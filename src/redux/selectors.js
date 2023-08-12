@@ -12,3 +12,10 @@ export const selectFilteredContacts = createSelector(
 
 export const selectContactsError = store => store.contacts.error;
 export const selectContactsIsLoading = store => store.contacts.isLoading;
+
+export const selectUser = state => state.auth.user;
+export const selectToken = state => state.auth.token;
+export const selectIsAuthenticated = state => state.auth.isAuthenticated;
+
+export const selectUserError = state => state.auth.error;
+export const selectUserIsLoading = state => state.auth.isLoading;
