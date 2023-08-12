@@ -49,23 +49,35 @@ class Api {
   }
 
   async registerUser(user) {
-    return await this.fetch('/users/signup', {
+    const data = await this.fetch('/users/signup', {
       method: 'POST',
       body: JSON.stringify(user),
     });
+
+    this.setToken(data.token);
+
+    return data;
   }
 
   async loginUser(user) {
-    return await this.fetch('/users/login', {
+    const data = await this.fetch('/users/login', {
       method: 'POST',
       body: JSON.stringify(user),
     });
+
+    this.setToken(data.token);
+
+    return data;
   }
 
   async logout() {
-    return await this.fetch('/users/logout', {
+    const data = await this.fetch('/users/logout', {
       method: 'POST',
     });
+
+    this.resetToken();
+
+    return data;
   }
 
   async getCurrentUser() {
