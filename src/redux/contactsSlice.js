@@ -7,9 +7,12 @@ const initialState = {
   error: null,
 };
 
-const isRejectedAction = action => action.type.endsWith('rejected');
-const isPendingAction = action => action.type.endsWith('pending');
-const isFulfilledAction = action => action.type.endsWith('fulfilled');
+const isRejectedAction = action =>
+  action.type.endsWith('rejected') && action.type.includes('contacts');
+const isPendingAction = action =>
+  action.type.endsWith('pending') && action.type.includes('contacts');
+const isFulfilledAction = action =>
+  action.type.endsWith('fulfilled') && action.type.includes('contacts');
 
 const slice = createSlice({
   name: 'contacts',
