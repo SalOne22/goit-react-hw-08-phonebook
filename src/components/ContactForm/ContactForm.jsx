@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   FormControl,
@@ -11,7 +12,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addContact } from '../../redux/operations';
-import { selectContacts } from '../../redux/selectors';
+import { selectContacts, selectContactsError } from '../../redux/selectors';
 import { Form } from './ContactForm.styled';
 
 const nameRegExp = /^[A-Za-z\u0080-\uFFFF ']+$/;
@@ -48,6 +49,7 @@ export const ContactForm = () => {
   });
 
   const contacts = useSelector(selectContacts);
+  const error = useSelector(selectContactsError);
   const dispatch = useDispatch();
 
   const onSubmit = ({ name, phone }) => {
@@ -69,6 +71,15 @@ export const ContactForm = () => {
 
     return dispatch(addContact({ name, number: phone }));
   };
+
+  useEffect(() => {
+    if (error !== null)
+      toast({
+        title: error,
+        status: 'error',
+        isClosable: true,
+      });
+  }, [error, toast]);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
