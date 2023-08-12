@@ -51,7 +51,7 @@ export const ContactList = () => {
 
   return (
     <List spacing={2}>
-      {filteredContacts.map(({ name, phone, id }) => (
+      {filteredContacts.map(({ name, number: phone, id }) => (
         <ListItem key={id}>
           <Flex gap={3}>
             <Flex gap={1}>
