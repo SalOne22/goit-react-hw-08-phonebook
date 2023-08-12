@@ -56,6 +56,22 @@ export const loginUser = createAsyncThunk(
   },
 );
 
+export const refreshUser = createAsyncThunk(
+  'user/refresh',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const token = state.auth.token;
+
+    api.setToken(token);
+
+    try {
+      return await api.getCurrentUser();
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  },
+);
+
 export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
   try {
     return await api.logout();
