@@ -38,6 +38,7 @@ export const RegisterForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(schema),
@@ -51,6 +52,8 @@ export const RegisterForm = () => {
     name = name.trim();
     email = email.trim();
     password = password.trim();
+
+    reset();
 
     return dispatch(registerUser({ name, email, password }));
   };

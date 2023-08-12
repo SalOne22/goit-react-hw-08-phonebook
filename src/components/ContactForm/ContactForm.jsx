@@ -43,6 +43,7 @@ export const ContactForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(schema),
@@ -68,6 +69,8 @@ export const ContactForm = () => {
       });
       return;
     }
+
+    reset();
 
     return dispatch(addContact({ name, number: phone }));
   };

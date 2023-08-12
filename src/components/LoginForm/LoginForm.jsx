@@ -20,6 +20,7 @@ export const LoginForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm();
 
@@ -30,6 +31,8 @@ export const LoginForm = () => {
   const onSubmit = ({ email, password }) => {
     email = email.trim();
     password = password.trim();
+
+    reset();
 
     return dispatch(loginUser({ email, password }));
   };
