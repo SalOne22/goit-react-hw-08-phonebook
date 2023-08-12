@@ -5,6 +5,8 @@ import { ScreenLoader } from './ScreenLoader';
 import { Layout } from './Layout';
 import { selectIsAuthenticated, selectToken } from '../redux/selectors';
 import { refreshUser } from '../redux/operations';
+import { PrivateRoute } from './PrivateRoute';
+import { RestrictedRoute } from './RestrictedRoute';
 
 const Home = lazy(() => import('../pages/Home'));
 const Contacts = lazy(() => import('../pages/Contacts'));
@@ -27,9 +29,30 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="contacts" element={<Contacts />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
+          <Route
+            path="contacts"
+            element={
+              <PrivateRoute to="/login">
+                <Contacts />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="login"
+            element={
+              <RestrictedRoute to="/contacts">
+                <Login />
+              </RestrictedRoute>
+            }
+          />
+          <Route
+            path="register"
+            element={
+              <RestrictedRoute to="/contacts">
+                <Register />
+              </RestrictedRoute>
+            }
+          />
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
