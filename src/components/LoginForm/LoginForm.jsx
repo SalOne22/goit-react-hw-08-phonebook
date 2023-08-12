@@ -1,26 +1,46 @@
+import { useEffect } from 'react';
 import {
   FormControl,
   FormLabel,
   Button,
   Input,
   FormErrorMessage,
+  useToast,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form } from './LoginForm.styled';
+import { loginUser } from '../../redux/operations';
+import { selectUserError } from '../../redux/selectors';
 
 export const LoginForm = () => {
+  const toast = useToast();
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm();
 
+  const error = useSelector(selectUserError);
+
+  const dispatch = useDispatch();
+
   const onSubmit = ({ email, password }) => {
     email = email.trim();
     password = password.trim();
 
-    console.log(email, password);
+    return dispatch(loginUser({ email, password }));
   };
+
+  useEffect(() => {
+    if (error !== null)
+      toast({
+        title: error,
+        status: 'error',
+        isClosable: true,
+      });
+  }, [error, toast]);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
