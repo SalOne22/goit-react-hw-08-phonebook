@@ -35,7 +35,7 @@ const slice = createSlice({
         state.isAuthenticated = true;
         state.user = action.payload;
       })
-      .addCase(logout, state => {
+      .addCase(logout.fulfilled, state => {
         state.isAuthenticated = false;
         state.user = null;
         state.token = null;
