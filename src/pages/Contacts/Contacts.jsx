@@ -1,7 +1,7 @@
-import { ContactForm } from '../components/ContactForm';
-import { ContactList } from '../components/ContactList';
-import { Filter } from '../components/Filter';
-import { Section } from '../components/Section';
+import { ContactForm } from './ContactForm';
+import { ContactList } from './ContactList';
+import { Filter } from '../../components/Filter';
+import { Section } from '../../components/ui/Section';
 
 const Contacts = () => {
   return (

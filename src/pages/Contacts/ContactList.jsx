@@ -11,12 +11,12 @@ import {
   Spinner,
   useToast,
 } from '@chakra-ui/react';
-import { fetchContacts, deleteContact } from '../redux/operations';
+import { fetchContacts, deleteContact } from '../../redux/operations';
 import {
   selectContactsError,
   selectContactsIsLoading,
   selectFilteredContacts,
-} from '../redux/selectors';
+} from '../../redux/selectors';
 
 export const ContactList = () => {
   const toast = useToast();

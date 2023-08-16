@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addContact } from '../../redux/operations';
 import { selectContacts, selectContactsError } from '../../redux/selectors';
-import { Form } from './ContactForm.styled';
+import { Form } from '../../components/ui/Form';
 
 const nameRegExp = /^[A-Za-z\u0080-\uFFFF ']+$/;
 const phoneRegExp = /^(\+?[0-9.()\-\s]*)$/;

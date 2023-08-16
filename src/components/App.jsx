@@ -1,7 +1,7 @@
 import { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { ScreenLoader } from './ScreenLoader';
+import { ScreenLoader } from './ui/ScreenLoader';
 import { Layout } from './Layout';
 import { selectIsAuthenticated, selectToken } from '../redux/selectors';
 import { refreshUser } from '../redux/operations';

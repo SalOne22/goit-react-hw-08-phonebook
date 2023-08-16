@@ -7,7 +7,7 @@ import { App } from './components/App';
 import { persistor, store } from './redux/store';
 import theme from './theme';
 import { PersistGate } from 'redux-persist/integration/react';
-import { ScreenLoader } from './components/ScreenLoader';
+import { ScreenLoader } from './components/ui/ScreenLoader';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

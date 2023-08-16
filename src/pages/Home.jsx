@@ -1,5 +1,5 @@
 import { Text, Button } from '@chakra-ui/react';
-import { Section } from '../components/Section';
+import { Section } from '../components/ui/Section';
 import { NavLink } from 'react-router-dom';
 
 const Home = () => {
