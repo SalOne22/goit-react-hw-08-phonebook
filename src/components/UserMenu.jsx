@@ -7,8 +7,8 @@ import {
   Avatar,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUser } from '../redux/selectors';
-import { logout } from '../redux/operations';
+import { selectUser } from '~/redux/selectors';
+import { logout } from '~/redux/operations';
 
 export const UserMenu = () => {
   const user = useSelector(selectUser);

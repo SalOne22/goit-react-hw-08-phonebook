@@ -9,10 +9,11 @@ import {
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form } from '../../components/ui/Form';
-import { loginUser } from '../../redux/operations';
-import { selectUserError } from '../../redux/selectors';
-import { clearError } from '../../redux/authSlice';
+
+import { Form } from '~/components/ui/Form';
+import { loginUser } from '~/redux/operations';
+import { selectUserError } from '~/redux/selectors';
+import { clearError } from '~/redux/authSlice';
 
 export const LoginForm = () => {
   const toast = useToast();

@@ -11,10 +11,11 @@ import {
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form } from '../../components/ui/Form';
-import { registerUser } from '../../redux/operations';
-import { selectUserError } from '../../redux/selectors';
-import { clearError } from '../../redux/authSlice';
+
+import { Form } from '~/components/ui/Form';
+import { registerUser } from '~/redux/operations';
+import { selectUserError } from '~/redux/selectors';
+import { clearError } from '~/redux/authSlice';
 
 const nameRegExp = /^[A-Za-z\u0080-\uFFFF ']+$/;
 

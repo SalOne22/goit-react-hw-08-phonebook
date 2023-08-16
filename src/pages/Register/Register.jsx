@@ -1,5 +1,5 @@
 import { RegisterForm } from './RegisterForm';
-import { Section } from '../../components/ui/Section';
+import { Section } from '~/components/ui/Section';
 
 const Register = () => {
   return (

@@ -11,9 +11,11 @@ import {
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { addContact } from '../../redux/operations';
-import { selectContacts, selectContactsError } from '../../redux/selectors';
-import { Form } from '../../components/ui/Form';
+
+import { Form } from '~/components/ui/Form';
+
+import { selectContacts, selectContactsError } from '~/redux/selectors';
+import { addContact } from '~/redux/operations';
 
 const nameRegExp = /^[A-Za-z\u0080-\uFFFF ']+$/;
 const phoneRegExp = /^(\+?[0-9.()\-\s]*)$/;

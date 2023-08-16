@@ -1,5 +1,5 @@
 import { LoginForm } from './LoginForm';
-import { Section } from '../../components/ui/Section';
+import { Section } from '~/components/ui/Section';
 
 const Login = () => {
   return (

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { selectIsAuthenticated } from '../redux/selectors';
+import { selectIsAuthenticated } from '~/redux/selectors';
 
 export const RestrictedRoute = ({ children, to = '/' }) => {
   const isAuthenticated = useSelector(selectIsAuthenticated);

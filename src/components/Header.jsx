@@ -1,9 +1,11 @@
 import { Flex, Spacer, useColorMode } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
+
 import { Navigation } from './Navigation';
 import { AuthenticationButtons } from './AuthenticationButtons';
-import { selectIsAuthenticated } from '../redux/selectors';
 import { UserMenu } from './UserMenu';
+
+import { selectIsAuthenticated } from '~/redux/selectors';
 
 export const Header = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
